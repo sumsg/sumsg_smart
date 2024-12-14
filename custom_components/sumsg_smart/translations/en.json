@@ -1,0 +1,31 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Device is already configured"
+        },
+        "flow_title": "{name}",
+        "error": {
+            "cannot_connect": "Failed to connect",
+            "unknown": "Unexpected error en"
+        },
+        "step": {
+            "discovery_confirm": {
+                "description": "Do you want to setup {name}?"
+            },
+            "user": {
+                "description": "If you don't have an account, please register here. https://app.sumsg.com",
+                "data": {
+                    "username": "Account(Telphone/Email)",
+                    "password": "Password"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "i18n_state": {
+                "name": "pulsatrix State"
+            }
+        }
+    }
+}

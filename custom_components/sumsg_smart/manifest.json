@@ -1,0 +1,18 @@
+{
+  "domain": "sumsg_smart",
+  "name": "Sumsg Smart",
+  "description": "Sumsg Smart integration for Home Assistant",
+  "version": "1.0.1",
+  "documentation": "https://github.com/sumsg/sumsg_smart",
+  "issue_tracker": "https://github.com/sumsg/sumsg_smart/issues",
+  "codeowners": [
+    "@sumsg"
+  ],
+  "requirements": [
+    "paho-mqtt==1.6.1"
+  ],
+  "config_flow": true,
+  "dependencies": [],
+  "iot_class": "cloud_push",
+  "single_config_entry": true
+}
