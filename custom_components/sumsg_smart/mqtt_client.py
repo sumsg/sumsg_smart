@@ -5,6 +5,10 @@ from .const import DOMAIN, MQTT_HOST,MQTT_PORT
 import paho.mqtt.client as mqtt # type: ignore
 from homeassistant.core import HomeAssistant # type: ignore
 
+TLS_CONTEXT = ssl.create_default_context()
+TLS_CONTEXT.check_hostname = False
+TLS_CONTEXT.verify_mode = ssl.CERT_NONE
+
 _LOGGER = logging.getLogger(__name__)
 
 class MqttClient:
@@ -62,9 +66,9 @@ class MqttClient:
         self._mqtt.on_disconnect = on_disconnect_callback
         self._mqtt.on_subscribe = on_subscribe_callback
         self._mqtt.username_pw_set(self._username, self._password)
-        # self._mqtt.tls_set_context(context=None)
-        self._mqtt.tls_set(cert_reqs=ssl.CERT_NONE)
-        self._mqtt.tls_insecure_set(True)
+        self._mqtt.tls_set_context(context=TLS_CONTEXT)
+        # self._mqtt.tls_set(cert_reqs=ssl.CERT_NONE)
+        # self._mqtt.tls_insecure_set(True)
         self._mqtt.connect_async(
             host=MQTT_HOST, 
             port=MQTT_PORT,

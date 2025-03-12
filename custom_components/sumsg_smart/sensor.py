@@ -112,7 +112,11 @@ async def async_setup_entry(
                 "entity_unit":"°C"
             }
             last_msg_str = device.get('lastMsg', '{}')
-            last_msg = json.loads(last_msg_str)
+            try:
+                last_msg = json.loads(last_msg_str) if last_msg_str else {}
+            except json.JSONDecodeError as exc:
+                _LOGGER.error("Failed to parse JSON: %s", exc)
+                last_msg = {}
             #
             if model=="pcSw3" or model=="pcSw1":
                 control_id = 0
