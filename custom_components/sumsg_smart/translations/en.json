@@ -1,31 +1,44 @@
 {
-    "config": {
-        "abort": {
-            "already_configured": "Device is already configured"
-        },
-        "flow_title": "{name}",
-        "error": {
-            "cannot_connect": "Failed to connect",
-            "unknown": "Unexpected error en"
-        },
-        "step": {
-            "discovery_confirm": {
-                "description": "Do you want to setup {name}?"
-            },
-            "user": {
-                "description": "If you don't have an account, please register here. https://app.sumsg.com",
-                "data": {
-                    "username": "Account(Telphone/Email)",
-                    "password": "Password"
-                }
-            }
+  "config": {
+    "step": {
+      "user": {
+        "title": "SUMSG Device Configuration",
+        "description": "Please select the device type",
+        "data": {
+          "device_type": "Device Type"
         }
+      },
+      "cloud_config": {
+        "title": "Cloud Version",
+        "description": "Enter your account and password for the Cloud device",
+        "data": {
+          "username": "Email/Telphone",
+          "password": "Password"
+        }
+      },
+      "lan_config": {
+        "title": "LAN Version",
+        "description": "Enter the device IP address and Wi-Fi password",
+        "data": {
+          "device_ip": "Device IP Address",
+          "wifi_password": "Wi-Fi Password"
+        }
+      }
     },
-    "entity": {
-        "sensor": {
-            "i18n_state": {
-                "name": "pulsatrix State"
-            }
-        }
+    "error": {
+      "invalid_ip": "Invalid IP address.",
+      "login_failed": "Login failed. Please check if the device is online.",
+      "timeout": "Login timed out.",
+      "unknown": "Unknown error occurred."
     }
+  },
+  "selector": {
+    "device_type": {
+      "options": {
+        "lan": "LAN Version/Home Assistant",
+        "cloud": "Cloud Version"
+      }
+    }
+  },
+  "title": "SUMSG Smart"
 }

@@ -14,6 +14,7 @@ This custom integration enables SUMSG platform smart devices to connect to the H
 | pcS3           | WiFi Boot Card Gen 2  |
 | powerSwitch1   | Smart Switch Gen 1    |
 | pcHealth1      | PC Hardware Monitor   |
+| HA-WBC-2       | WiFi Boot Card Lan Gen 2    |
 
 ### Installation
 

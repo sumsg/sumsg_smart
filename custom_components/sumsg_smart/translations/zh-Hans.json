@@ -1,0 +1,44 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "SUMSG 设备配置",
+        "description": "请选择设备类型",
+        "data": {
+          "device_type": "设备类型"
+        }
+      },
+      "cloud_config": {
+        "title": "网络版本（Cloud）",
+        "description": "请输入网络版本设备的账号密码",
+        "data": {
+          "username": "邮箱/手机号",
+          "password": "密码"
+        }
+      },
+      "lan_config": {
+        "title": "局域网版本（LAN）",
+        "description": "请输入局域网设备的 IP 地址和 Wi-Fi 密码",
+        "data": {
+          "device_ip": "设备 IP 地址",
+          "wifi_password": "Wi-Fi 密码"
+        }
+      }
+    },
+    "error": {
+      "invalid_ip": "无效的 IP 地址",
+      "login_failed": "登录失败，请检查设备是否在线。",
+      "timeout": "登录超时。",
+      "unknown": "发生未知错误。"
+    }
+  },
+  "selector": {
+    "device_type": {
+      "options": {
+        "lan": "局域网版本/Home Assistant",
+        "cloud": "网络版本"
+      }
+    }
+  },
+  "title": "SUMSG 智能"
+}

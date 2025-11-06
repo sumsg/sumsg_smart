@@ -12,6 +12,7 @@
 | pcS3         | WiFi 开机卡2代           |
 | powerSwitch1 | 智能开关1代              |
 | pcHealth1    | PC 硬件监控              |
+| HA-WBC-2     | WiFi 开机卡局域网版2代    |
 
 ### 安装
 

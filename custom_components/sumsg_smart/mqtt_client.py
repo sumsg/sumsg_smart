@@ -33,26 +33,28 @@ class MqttClient:
                 device_id = device.get('token')
                 self._devices[device_id] = device
     async def connect(self):
-        _LOGGER.info("Start connecting to cloud MQTT-server")
+        _LOGGER.debug("Start connecting to cloud MQTT-server")
         def on_connect_callback(client, userdata, flags, res):
-            _LOGGER.info("Connected to MQTT")
+            _LOGGER.debug("Connected to MQTT")
             try:
-                if self._mqtt.is_connected():
-                    for device_id, device in self._devices.items():
-                        model = device.get('productName')
-                        topic = f"su/{model}/{device_id}/server"
-                        self._mqtt.subscribe(topic)
+                if self._mqtt is not None:
+                    if self._mqtt.is_connected():
+                        for device_id, device in self._devices.items():
+                            model = device.get('productName')
+                            topic = f"su/{model}/{device_id}/server"
+                            self._mqtt.subscribe(topic)
             except Exception as exc: 
                 logging.exception(exc)
         def on_disconnect_callback(client, userdata, rc):
             _LOGGER.info(f"Disconnected from MQTT")
-            self._mqtt.reconnect()
+            if self._mqtt is not None:
+                self._mqtt.reconnect()
         def on_subscribe_callback(client, userdata, mid, granted_qos):
             for unique_id, device_entity in self._devicesEntity.items():
                 device_entity.sync_system_data()
         def on_message_callback(client, userdata, message):
             try:
-                self._mqtt_process_message(message)
+                self._mqtt_process_message(message.topic,message.payload)
             except Exception as exc:
                 logging.exception(exc)
         self._mqtt = mqtt.Client(
@@ -78,14 +80,13 @@ class MqttClient:
         self._devicesEntity[entity_id] = entity
     def clear_entities(self):
         self._devicesEntity = {}
-    def _mqtt_process_message(self, message: dict):
+    def _mqtt_process_message(self, topic, payload):
         if not self._devicesEntity:
             return
-        # _LOGGER.info(f"message:{message.payload}")
-        legacy_topic = message.topic.split("/")
+        legacy_topic = topic.split("/")
         model = legacy_topic[1]
         device_id = legacy_topic[2]
-        payload = json.loads(message.payload)
+        payload = json.loads(payload)
         if model=="pcSw3" or model=="pcSw1":
             for control_id in [0,2,3,4,5,6]:
                 entity_id = f"{DOMAIN}_{control_id}_{device_id}"
@@ -100,11 +101,13 @@ class MqttClient:
                 devicesEntity.set_system_data(device_id,control_id,model,payload)
     #
     def publish(self,topic,payload):
-        if not self._mqtt.is_connected():
-            return
-        self._mqtt.publish(topic, json.dumps(payload), qos=1)
+        if self._mqtt is not None:
+            if not self._mqtt.is_connected():
+                return
+            self._mqtt.publish(topic, json.dumps(payload), qos=1)
     def disconnect(self):
-        self._mqtt.disconnect()
-    @property
-    def client(self) -> mqtt:
-        return self._mqtt
+        if self._mqtt is not None:
+            self._mqtt.disconnect()
+    # @property
+    # def client(self) -> mqtt:
+    #     return self._mqtt

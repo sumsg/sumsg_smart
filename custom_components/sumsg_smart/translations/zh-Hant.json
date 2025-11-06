@@ -1,0 +1,44 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "SUMSG 裝置設定",
+        "description": "請選擇裝置類型",
+        "data": {
+          "device_type": "裝置類型"
+        }
+      },
+      "cloud_config": {
+        "title": "網路版本（Cloud）",
+        "description": "請輸入網路版本裝置的帳號與密碼",
+        "data": {
+          "username": "邮箱/手機",
+          "password": "密碼"
+        }
+      },
+      "lan_config": {
+        "title": "區域網路版本（LAN）",
+        "description": "請輸入區域網路裝置的 IP 位址與 Wi-Fi 密碼",
+        "data": {
+          "device_ip": "裝置 IP 位址",
+          "wifi_password": "Wi-Fi 密碼"
+        }
+      }
+    },
+    "error": {
+      "invalid_ip": "無效的 IP 位址",
+      "login_failed": "登入失敗，請檢查裝置是否在線。",
+      "timeout": "登入逾時。",
+      "unknown": "發生未知錯誤。"
+    }
+  },
+  "selector": {
+    "device_type": {
+      "options": {
+        "lan": "區域網路版本/Home Assistant",
+        "cloud": "網路版本"
+      }
+    }
+  },
+  "title": "SUMSG 智慧裝置"
+}
